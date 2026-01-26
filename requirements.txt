@@ -1,0 +1,4 @@
+pyside6
+cryptography
+argon2-cffi
+pynput

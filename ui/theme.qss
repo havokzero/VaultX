@@ -1,0 +1,79 @@
+/* Base widget styling */
+QWidget {
+    background-color: #282a36;
+    color: #f8f8f2;
+    font-family: Segoe UI;
+}
+
+/* Explicit font sizing (DO NOT put font-size on QWidget) */
+QLabel,
+QLineEdit,
+QPushButton,
+QListWidget,
+QTextEdit,
+QTabBar::tab {
+    font-size: 13px;
+}
+
+/* Line edits */
+QLineEdit {
+    background-color: #44475a;
+    border: 1px solid #6272a4;
+    border-radius: 6px;
+    padding: 6px;
+    min-height: 34px;
+}
+
+QLineEdit:focus {
+    border: 1px solid #8be9fd;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #44475a;
+    border: 1px solid #6272a4;
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 36px;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background-color: #6272a4;
+}
+
+QPushButton:pressed {
+    background-color: #282a36;
+}
+
+/* Tabs */
+QTabWidget::pane {
+    border: none;
+}
+
+QTabBar::tab {
+    background: #44475a;
+    padding: 10px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background: #6272a4;
+}
+
+/* Password strength colors */
+QLabel[strength="weak"] {
+    color: #ff5555;
+}
+
+QLabel[strength="ok"] {
+    color: #f1fa8c;
+}
+
+QLabel[strength="strong"] {
+    color: #50fa7b;
+}
+
+QLabel[strength="very"] {
+    color: #8be9fd;
+}
