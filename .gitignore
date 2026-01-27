@@ -7,10 +7,16 @@ __pycache__/
 # Virtual env
 .venv/
 
-# PyInstaller
+# Build artifacts
 build/
 dist/
 *.spec
 
 # IDE
 .idea/
+.vscode/
+
+# OS / Git junk
+FETCH_HEAD
+git
+main
