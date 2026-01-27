@@ -1,7 +1,16 @@
-.venv/
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+.venv/
+
+# PyInstaller
 build/
 dist/
-.idea/
-*.pyc
 *.spec
+
+# IDE
+.idea/
