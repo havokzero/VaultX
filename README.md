@@ -1,34 +1,37 @@
 # 🔐 VaultX
 
-**VaultX** is a local-first, offline password manager built with Python and PySide6.  
-No cloud. No sync. No telemetry. No nonsense.
+**VaultX** is a local-first, offline password manager built with Python and PySide6.
 
-If you want a clean, fast, encrypted vault that lives entirely on *your* machine, this is it.
+No cloud.  
+No sync.  
+No telemetry.  
+No accounts.
+
+If you want a clean, fast, encrypted vault that lives entirely on **your** machine, this is it.
 
 ---
 
 ## ✨ Features
 
-- 🔒 **Strong cryptography**
-  - PBKDF-based key derivation
-  - HMAC verification
-  - Encrypted vault storage
+- 🔒 **Strong, modern cryptography**
+  - Argon2 key derivation
+  - HMAC-based verification
+  - AES-256 encryption at rest
 - 🖥️ **Native desktop UI**
   - Built with PySide6 (Qt)
-  - Fast startup, no browser garbage
-- 🧠 **Auto-locking**
+  - No browser, no Electron
+- 🧠 **Automatic locking**
   - Locks after inactivity
   - Optional lock on window blur
 - ⌨️ **Global hotkey**
   - Instantly bring VaultX to the foreground
 - 📋 **Secure clipboard**
   - Auto-clears after timeout
-- 📴 **Offline-first**
+- 📴 **Offline-first by design**
   - No network access
   - No external services
-- 🧱 **Single-file build**
+- 🧱 **Single-file executable**
   - Packaged with PyInstaller
-  - Easy distribution
 
 ---
 
@@ -44,7 +47,7 @@ If you want a clean, fast, encrypted vault that lives entirely on *your* machine
 
 ## 🧱 Architecture Overview
 
-```
+```text
 VaultX/
 ├── main.py                # App entry point
 ├── config.py              # Global configuration
@@ -72,11 +75,87 @@ VaultX/
 
 ---
 
+## 🔐 Cryptography & Security Model
+
+VaultX encrypts all vault data **at rest** using standard, audited primitives.
+
+### 🔑 Key Derivation
+
+- Master password is **never stored**
+- Per-user random salt
+- Key derived with **Argon2** (memory-hard)
+
+```text
+Master Password
+        ↓
+   Argon2 KDF
+        ↓
+  256-bit Master Key
+```
+
+Argon2 resists GPU and ASIC cracking far better than PBKDF2.
+
+---
+
+### 🔒 Encryption at Rest
+
+Vault data is encrypted using **AES-256** via the Python `cryptography` library.
+
+- AES-256
+- Authenticated encryption (AEAD)
+- Unique random nonce per encryption
+- Integrity verified on every decrypt
+
+No ECB.  
+No custom crypto.  
+No silent corruption.
+
+---
+
+### 🧾 Authentication & Verification
+
+- Username protected with **HMAC**
+- Verifier confirms correct password
+- Constant-time comparisons prevent timing attacks
+
+---
+
+### 🧠 Key Lifetime
+
+- Keys exist **only in memory**
+- Re-derived on login
+- Destroyed on lock or exit
+- Clipboard auto-clears
+
+VaultX does **not**:
+- Cache keys
+- Store plaintext secrets
+- Write decrypted data to disk
+
+---
+
+### 🛡️ Threat Model (Honest)
+
+Protects against:
+- Disk theft
+- Offline vault exfiltration
+- Casual snooping
+
+Does **not** protect against:
+- Malware running as you
+- Keyloggers
+- Compromised OS
+- Memory inspection while unlocked
+
+Encryption at rest is not magic.
+
+---
+
 ## 🚀 Running from Source
 
 ### Requirements
 - Python 3.11+
-- Windows, Linux, or macOS
+- Windows / Linux / macOS
 
 ### Install dependencies
 ```bash
@@ -105,37 +184,23 @@ pyinstaller --onefile --windowed ^
   main.py
 ```
 
-Output will be in:
-```
+Output:
+```text
 dist/VaultX.exe
 ```
-
----
-
-## 🔐 Security Model (Short Version)
-
-- Master password **never stored**
-- Key derived with per-user salt
-- Username and verifier protected with HMAC
-- Clipboard auto-clears
-- Memory cleared on lock
-
-This is a **local vault**, not a cloud service.  
-If someone owns your machine, they own everything. That’s reality, not a bug.
 
 ---
 
 ## 🧭 Philosophy
 
 VaultX is intentionally:
-- Simple
-- Auditable
 - Offline
+- Auditable
 - Opinionated
+- Boring in the best way
 
 No accounts.  
 No sync.  
-No upsell.  
 No tracking.
 
 Just a vault.
@@ -145,16 +210,19 @@ Just a vault.
 ## 📜 License
 
 MIT License.  
-Do whatever you want. Just don’t pretend you wrote it.
+Do whatever you want.  
+Just don’t pretend you wrote it.
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project is for personal use and learning.  
+This project is for personal use and learning.
+
 Review the code before trusting it with secrets you can’t afford to lose.
 
-Cryptography is hard. Hubris is harder.
+Cryptography is hard.  
+Confidence without verification is harder.
 
 ---
 
