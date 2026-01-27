@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon, QFont
 
 from ui.app import PasswordManagerApp
+from utils.resources import resource_path
 
 
 def main():
@@ -17,20 +18,22 @@ def main():
 
     app = QApplication(sys.argv)
 
-    # Force a sane default font BEFORE stylesheets
+    # Prevent Qt font spam
     app.setFont(QFont("Segoe UI", 10))
 
-    # Application icon (window + taskbar)
-    app.setWindowIcon(QIcon("icon/content.png"))
+    # Load application icon (ICO is mandatory on Windows)
+    app_icon = QIcon(resource_path("icon/content.ico"))
+    app.setWindowIcon(app_icon)
 
     # Load theme
     try:
-        with open("ui/theme.qss", "r", encoding="utf-8") as f:
+        with open(resource_path("ui/theme.qss"), "r", encoding="utf-8") as f:
             app.setStyleSheet(f.read())
     except FileNotFoundError:
         pass
 
     window = PasswordManagerApp()
+    window.setWindowIcon(app_icon)
     window.show()
 
     sys.exit(app.exec())

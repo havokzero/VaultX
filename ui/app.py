@@ -34,7 +34,7 @@ class PasswordManagerApp(QMainWindow):
         # Window basics
         # ------------------------
 
-        self.setWindowIcon(QIcon("icon/content.png"))
+        self.setWindowIcon(QIcon("icon/content.ico"))
         self.resize(900, 600)
 
         # ------------------------
