@@ -1,4 +1,8 @@
-pyside6
-cryptography
-argon2-cffi
-pynput
+PySide6>=6.6
+cryptography>=42.0
+argon2-cffi>=23.1
+pynput>=1.7
+
+# Build / packaging
+pyinstaller>=6.3
+pillow>=10.2
