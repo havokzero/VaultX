@@ -172,16 +172,17 @@ python main.py
 ## 📦 Building a Single Executable (Windows)
 
 ```bash
-pyinstaller --onefile --windowed ^
-  --name VaultX ^
-  --icon icon\content.ico ^
-  --add-data "icon;icon" ^
-  --add-data "ui;ui" ^
-  --add-data "crypto;crypto" ^
-  --add-data "models;models" ^
-  --add-data "storage;storage" ^
-  --add-data "utils;utils" ^
+pyinstaller --onefile --windowed `
+  --name VaultX `
+  --icon "icon\content.ico" `
+  --add-data "icon;icon" `
+  --add-data "ui;ui" `
+  --add-data "crypto;crypto" `
+  --add-data "models;models" `
+  --add-data "storage;storage" `
+  --add-data "utils;utils" `
   main.py
+
 ```
 
 Output:
